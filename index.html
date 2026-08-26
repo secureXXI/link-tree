@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Source Crocs</title>
+<meta name="theme-color" content="#faf9f6">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f2f2f7;
+    --surface:#ffffff;
+    --ink:#000000;
+    --muted:#6d6d72;
+    --faint:#c6c6c8;
+    --line:#dcdce1;
+    --blue:#007aff;
+    --wa:#25d366;
+    --ig:#c1367f;
+    --tiktok:#111111;
+    --shopee:#ee4d2d;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display','Inter','Segoe UI',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:0 0 40px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .container{
+    width:100%;
+    max-width:420px;
+  }
+
+  /* iOS large-title style status/nav bar */
+  .navbar{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(242,242,247,0.86);
+    backdrop-filter:blur(20px) saturate(180%);
+    -webkit-backdrop-filter:blur(20px) saturate(180%);
+    padding:8px 20px 6px;
+    border-bottom:0.5px solid var(--line);
+  }
+  .navbar .nav-title{
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.3px;
+    color:var(--muted);
+    text-align:center;
+  }
+
+  /* Profile */
+  .profile{
+    text-align:center;
+    padding:28px 20px 24px;
+  }
+  .profile-img{
+    width:84px;height:84px;
+    border-radius:50%;
+    object-fit:cover;
+    margin:0 auto 14px;
+    display:block;
+    box-shadow:0 0 0 0.5px rgba(0,0,0,0.06);
+  }
+  h1{
+    font-size:22px;
+    font-weight:700;
+    letter-spacing:0.1px;
+    margin-bottom:4px;
+  }
+  .bio{
+    font-size:14px;
+    color:var(--muted);
+  }
+
+  /* iOS grouped section label */
+  .eyebrow{
+    font-size:12.5px;
+    font-weight:400;
+    color:var(--muted);
+    margin:22px 32px 6px;
+    text-transform:uppercase;
+    letter-spacing:0.2px;
+  }
+
+  /* Grouped list card, iOS Settings style */
+  .links{
+    background:var(--surface);
+    border-radius:14px;
+    margin:0 16px;
+    overflow:hidden;
+    box-shadow:0 0.5px 0 rgba(0,0,0,0.04);
+  }
+
+  .link-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:var(--ink);
+    padding:11px 16px;
+    position:relative;
+    transition:background-color .12s ease;
+  }
+  .link-item:not(:last-child)::after{
+    content:'';
+    position:absolute;
+    left:56px; right:0; bottom:0;
+    height:0.5px;
+    background:var(--line);
+  }
+  .link-item:active{
+    background-color:#e9e9ee;
+  }
+
+  .link-icon{
+    width:30px;height:30px;
+    border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;
+    color:#fff;
+    flex-shrink:0;
+  }
+  .link-item.primary .link-icon{ background:var(--wa); }
+  .link-item.ig .link-icon{ background:linear-gradient(135deg,#fdf497 0%,#fd5949 45%,#d6249f 65%,#285AEB 100%); }
+  .link-item.tiktok .link-icon{ background:var(--tiktok); }
+  .link-item.shopee .link-icon{ background:var(--shopee); }
+
+  .link-text{ flex:1; min-width:0; }
+  .link-title{
+    font-size:15.5px;
+    font-weight:400;
+    line-height:1.3;
+  }
+  .link-desc{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:1px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .badge-fast{
+    font-size:10px;
+    font-weight:600;
+    color:#fff;
+    background:var(--wa);
+    padding:2px 7px;
+    border-radius:20px;
+    margin-left:6px;
+  }
+  .link-arrow{
+    font-size:13px;
+    color:var(--faint);
+    flex-shrink:0;
+  }
+
+  footer{
+    text-align:center;
+    font-size:12px;
+    color:var(--muted);
+    line-height:1.6;
+    margin-top:28px;
+    padding:0 20px;
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--blue);
+    outline-offset:2px;
+  }
+
+  /* ── Animasi ── */
+  @keyframes fadeSlideUp{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes scaleIn{
+    from{ opacity:0; transform:scale(0.9); }
+    to{ opacity:1; transform:scale(1); }
+  }
+  @keyframes navIn{
+    from{ opacity:0; }
+    to{ opacity:1; }
+  }
+
+  .navbar{
+    animation:navIn .4s ease both;
+  }
+  .profile-img{
+    animation:scaleIn .5s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  h1, .bio{
+    opacity:0;
+    animation:fadeSlideUp .45s ease forwards;
+  }
+  h1{ animation-delay:.08s; }
+  .bio{ animation-delay:.14s; }
+
+  .eyebrow{
+    opacity:0;
+    animation:fadeSlideUp .45s ease .18s forwards;
+  }
+
+  .links{
+    opacity:0;
+    animation:fadeSlideUp .5s ease .22s forwards;
+  }
+
+  .link-item{
+    opacity:0;
+    animation:fadeSlideUp .4s ease forwards;
+  }
+  .link-item:nth-child(1){ animation-delay:.28s; }
+  .link-item:nth-child(2){ animation-delay:.34s; }
+  .link-item:nth-child(3){ animation-delay:.40s; }
+  .link-item:nth-child(4){ animation-delay:.46s; }
+
+  footer{
+    opacity:0;
+    animation:fadeSlideUp .45s ease .55s forwards;
+  }
+
+  /* Tap feedback ala iOS: sedikit mengecil + ikon "pop" */
+  .link-item{
+    transition:background-color .12s ease, transform .12s ease;
+  }
+  .link-item:active{
+    transform:scale(0.985);
+  }
+  .link-icon{
+    transition:transform .18s cubic-bezier(.34,1.56,.64,1);
+  }
+  .link-item:active .link-icon{
+    transform:scale(0.88);
+  }
+
+  .badge-fast{
+    animation:pulseBadge 2.2s ease-in-out infinite;
+  }
+  @keyframes pulseBadge{
+    0%,100%{ box-shadow:0 0 0 0 rgba(37,211,102,0.35); }
+    50%{ box-shadow:0 0 0 4px rgba(37,211,102,0); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+      animation-duration:0.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.01ms !important;
+    }
+  }
+
+  @media (max-width:400px){
+    .eyebrow{ margin:22px 24px 6px; }
+    .links{ margin:0 12px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="container" id="homePage">
+    <div class="navbar"><div class="nav-title">source.birken</div></div>
+
+    <div class="profile">
+      <img src="3.png" class="profile-img" alt="Source Crocs">
+      <h1>source.birken</h1>
+      <p class="bio">source.birken Link-Tree</p>
+    </div>
+
+    <p class="eyebrow">Hubungi &amp; Ikuti Kami</p>
+    <div class="links">
+
+      <a href="https://wa.me/62895342072060" class="link-item primary" target="_blank" rel="noopener">
+        <div class="link-icon"><i class="fab fa-whatsapp"></i></div>
+        <div class="link-text">
+          <div class="link-title">WhatsApp <span class="badge-fast">Cepat</span></div>
+          <div class="link-desc">Chat untuk pemesanan PRE-ORDER</div>
+        </div>
+        <i class="fas fa-chevron-right link-arrow"></i>
+      </a>
+
+      <a href="https://instagram.com/source.birken" class="link-item ig" target="_blank" rel="noopener">
+        <div class="link-icon"><i class="fab fa-instagram"></i></div>
+        <div class="link-text">
+          <div class="link-title">Instagram</div>
+          <div class="link-desc">Akun Official Instagram</div>
+        </div>
+        <i class="fas fa-chevron-right link-arrow"></i>
+      </a>
+
+      <a href="https://tiktok.com/@source.birken" class="link-item tiktok" target="_blank" rel="noopener">
+        <div class="link-icon"><i class="fab fa-tiktok"></i></div>
+        <div class="link-text">
+          <div class="link-title">TikTok</div>
+          <div class="link-desc">Akun Official TikTok</div>
+        </div>
+        <i class="fas fa-chevron-right link-arrow"></i>
+      </a>
+
+      <a href="https://shopee.co.id/source.crocs" class="link-item shopee" target="_blank" rel="noopener">
+        <div class="link-icon"><i class="fas fa-shopping-bag"></i></div>
+        <div class="link-text">
+          <div class="link-title">Shopee</div>
+          <div class="link-desc">Akun Official Shopee</div>
+        </div>
+        <i class="fas fa-chevron-right link-arrow"></i>
+      </a>
+
+    </div>
+
+    <footer>
+      © 2026 source.birken · Dibuat oleh secureXXI<br>
+      Terakhir diperbarui: <span id="currentDate"></span>
+    </footer>
+  </div>
+
+<script>
+  document.getElementById('currentDate').textContent =
+    new Date().toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+</script>
+</body>
+</html>

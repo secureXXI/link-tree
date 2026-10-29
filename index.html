@@ -390,6 +390,93 @@
   }
   .store-hero.reverse .store-points{ animation-delay:.4s; }
 
+  /* ── Teks besar "Home Of Birkenstock" ── */
+  .store-banner{
+    padding:36px 20px 0;
+    opacity:0;
+    animation:fadeSlideUp .5s ease forwards;
+  }
+  .store-banner h2{
+    text-align:center;
+    font-size:clamp(22px, 7.6vw, 34px);
+    line-height:1.1;
+    font-weight:800;
+    letter-spacing:-1px;
+    white-space:nowrap;
+  }
+  .store-banner + .store-hero{ padding-top:32px; }
+
+  /* ── Preview kualitas (foto + lightbox) ── */
+  .quality-card{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:calc(100% - 32px);
+    margin:0 16px 14px;
+    padding:10px 14px;
+    background:var(--surface);
+    border:0;
+    border-radius:14px;
+    font:inherit;
+    color:inherit;
+    text-align:left;
+    cursor:pointer;
+    opacity:0;
+    animation:fadeSlideUp .5s ease .45s forwards;
+    transition:transform .12s ease;
+  }
+  .quality-card:active{ transform:scale(0.985); }
+  .quality-card img{
+    width:60px;height:60px;
+    border-radius:10px;
+    object-fit:cover;
+    object-position:center 45%;
+    background:var(--press);
+    flex-shrink:0;
+  }
+  .quality-cap{ flex:1; min-width:0; }
+  .quality-title{ font-size:14.5px; font-weight:600; line-height:1.3; }
+  .quality-desc{ font-size:12.5px; color:var(--muted); margin-top:2px; line-height:1.4; }
+  .quality-icon{ font-size:13px; color:var(--faint); flex-shrink:0; }
+
+  .lightbox{
+    position:fixed;
+    inset:0;
+    z-index:60;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:max(16px, env(safe-area-inset-top, 0px)) 12px max(16px, env(safe-area-inset-bottom, 0px));
+    background:rgba(0,0,0,0.92);
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .25s ease, visibility .25s ease;
+  }
+  .lightbox.show{ opacity:1; visibility:visible; }
+  .lightbox img{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+    border-radius:10px;
+    transform:scale(0.96);
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .lightbox.show img{ transform:scale(1); }
+  .lightbox-close{
+    position:absolute;
+    top:calc(12px + env(safe-area-inset-top, 0px));
+    right:14px;
+    width:34px;height:34px;
+    border:0;
+    border-radius:50%;
+    background:rgba(120,120,128,0.5);
+    color:#fff;
+    font-size:15px;
+    cursor:pointer;
+  }
+
   /* ── Tombol bahasa (ID / EN) ── */
   .home-nav{
     display:grid;
@@ -587,6 +674,10 @@
       <div class="lang-switch" role="group" aria-label="Bahasa / Language"><button type="button" data-lang="id">ID</button><button type="button" data-lang="en">EN</button></div>
     </div>
 
+    <section class="store-banner">
+      <h2>Home Of Birkenstock</h2>
+    </section>
+
     <section class="store-hero">
       <h2>We Are<br>Different</h2>
       <!-- ✏️ EDIT DI SINI: ganti dengan cerita asli tokomu -->
@@ -603,12 +694,27 @@
       </div>
     </section>
 
+    <!-- ✏️ EDIT DI SINI: ganti file foto jika ingin testimoni kualitas lain -->
+    <button type="button" class="quality-card" id="qualityBtn">
+      <img src="Birken_boston1.jpg" alt="Birkenstock Boston" loading="lazy">
+      <div class="quality-cap">
+        <div class="quality-title" data-i18n="qTitle">Preview Kualitas</div>
+        <div class="quality-desc" data-i18n="qDesc">Foto asli produk kami. Ketuk untuk memperbesar.</div>
+      </div>
+      <i class="fas fa-expand quality-icon"></i>
+    </button>
+
     <div class="store-facts">
       <!-- ✏️ EDIT DI SINI: sesuaikan nomor versi -->
       <div class="store-fact"><span data-i18n="ver">Versi web</span><span>v1.0</span></div>
       <div class="store-fact"><span>Developer</span><span>secureXXI</span></div>
     </div>
   </div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Preview">
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Tutup / Close"><i class="fas fa-xmark"></i></button>
+  <img id="lightboxImg" alt="Birkenstock Boston">
+</div>
 
 <div class="ios-toast" id="langToast" role="status" aria-live="polite">
   <div class="ios-toast-icon"><i class="fas fa-globe"></i></div>
@@ -643,7 +749,9 @@
         story: 'source.birken adalah toko online dengan sistem Pre-Order, Untuk Memastikan Kualitas Tetap Terbaik Dan Bagus, Ber Operasi Secara Online.',
         pt1: '<strong>Balas chat cepat.</strong> Rata-rata Balas Chat Kami Adalah 5-10 Menit, Untuk Mempuaskan Customer Kita.',
         pt2: '<strong>Kualitas terjaga.</strong> Kami Berani Bersaing Dengan Toko Online Lain, Bahwa Kualitas Kami Paling Terbaik, Cork Kualitas Tertinggi, Suede Premium, Lem Super Rekat, Finishing Bagus.',
-        ver: 'Versi web'
+        ver: 'Versi web',
+        qTitle: 'Preview Kualitas',
+        qDesc: 'Foto asli produk kami. Ketuk untuk memperbesar.'
       },
       en: {
         follow: 'Contact &amp; Follow Us',
@@ -663,7 +771,9 @@
         story: 'source.birken is an online store that works on a Pre-Order basis to keep quality at its best. We operate fully online.',
         pt1: '<strong>Fast replies.</strong> Our average chat response time is 5-10 minutes, to keep our customers satisfied.',
         pt2: '<strong>Quality you can trust.</strong> We dare to compete with other online stores: our quality is the best, with top-grade cork, premium suede, super-strong glue, and great finishing.',
-        ver: 'Web version'
+        ver: 'Web version',
+        qTitle: 'Quality Preview',
+        qDesc: 'Real photo of our product. Tap to enlarge.'
       }
     };
     const KEY = 'sb-lang';
@@ -756,6 +866,19 @@
     });
 
     apply(lang);
+  })();
+
+  // ── Preview foto kualitas (lightbox) ──
+  (function () {
+    const box = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImg');
+    const btn = document.getElementById('qualityBtn');
+    function open() { img.src = btn.querySelector('img').src; box.classList.add('show'); }
+    function close() { box.classList.remove('show'); }
+    btn.addEventListener('click', open);
+    box.addEventListener('click', close);          // ketuk di mana saja untuk menutup
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    window.addEventListener('hashchange', close);
   })();
 
   // ── Pindah halaman: Beranda <-> Latar Belakang Toko ──
